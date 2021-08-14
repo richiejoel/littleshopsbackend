@@ -1,0 +1,11 @@
+{
+  "name": "littleshopsback",
+  "version": "1.0.0",
+  "description": "API Notifications PUSH",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "richiejoel",
+  "license": "ISC"
+}
