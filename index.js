@@ -22,16 +22,21 @@ server.listen(process.env.PORT || 3000, function () {
   console.log("La Aplicación está funcionando en el puerto 3000");
 });
 
+sendNotificationEventCreation();
+
 async function sendNotificationEventCreation() {
+  console.log("Drivers license");
   try {
     var payload = {
       notification: { title: "FCM Little shops", body: "We are notification" },
       data: { click_action: "FLUTTER_NOTIFICATION_ACTION" },
     };
-
+    console.log("All I want");
+    console.log(payload);
     await admin.messaging().sendToTopic("Events", payload);
   } catch (error) {
     console.log(error);
+    console.log("Dejavu");
   }
 }
 
