@@ -1,42 +1,26 @@
-var http = require("http");
-var server = http.createServer();
+//var http = require("http");
+//var server = http.createServer();
+const express = require("express");
+const port = 3000;
+const controller = require("./controllers");
+const sendPush = controller.sendPush;
 
-const admin = require("firebase-admin");
-const serviceAccount = require("./littleshops-e51d8-firebase-adminsdk-hwsvv-7c1640d7ba.json");
+//initializations
+const app = express();
+//settings
+app.set("port", process.env.PORT || 3000);
+app.use(express.json({ limit: "50mb" }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-const DATABASE_URL = "https://littleshops-e51d8.firebaseio.com";
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: DATABASE_URL,
+app.get("/", (req, res) => {
+  res.send(`The API Notifications PUSH is running in port ${app.get("port")} `);
 });
 
-function mensaje(petic, resp) {
-  resp.writeHead(200, { "content-type": "text/plain" });
-  resp.write("Hola Mundo");
-  resp.end();
-}
-server.on("request", mensaje);
-
-server.listen(process.env.PORT || 3000, function () {
-  console.log("La Aplicación está funcionando en el puerto 3000");
-  //setInterval(sendNotificationEventCreation, 1000);
+app.listen(port, () => {
+  console.log(
+    `The API Notifications PUSH is running in port ${app.get("port")} `
+  );
 });
 
-async function sendNotificationEventCreation() {
-  console.log("Drivers license");
-  try {
-    var payload = {
-      notification: { title: "FCM Little shops", body: "We are notification" },
-      data: { click_action: "FLUTTER_NOTIFICATION_ACTION" },
-    };
-    console.log("All I want");
-    console.log(payload);
-    await admin.messaging().sendToTopic("Events", payload);
-  } catch (error) {
-    console.log(error);
-    console.log("Dejavu");
-  }
-}
-
-module.exports = { sendNotificationEventCreation };
+app.post("/sendPush", sendPush);
