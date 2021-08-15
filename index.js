@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
   res.send(`The API Notifications PUSH is running in port ${app.get("port")} `);
 });
 
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
   console.log(
     `The API Notifications PUSH is running in port ${app.get("port")} `
   );
