@@ -4,8 +4,11 @@ var server = http.createServer();
 const admin = require("firebase-admin");
 const serviceAccount = require("./littleshops-e51d8-firebase-adminsdk-hwsvv-7c1640d7ba.json");
 
+const DATABASE_URL = "https://littleshops-e51d8.firebaseio.com";
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
+  databaseURL: DATABASE_URL,
 });
 
 function mensaje(petic, resp) {
