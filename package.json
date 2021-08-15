@@ -7,5 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "richiejoel",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "firebase-admin": "^9.11.0"
+  }
 }
