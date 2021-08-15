@@ -20,7 +20,7 @@ server.on("request", mensaje);
 
 server.listen(process.env.PORT || 3000, function () {
   console.log("La Aplicación está funcionando en el puerto 3000");
-  sendNotificationEventCreation();
+  setInterval(sendNotificationEventCreation, 1000);
 });
 
 async function sendNotificationEventCreation() {
