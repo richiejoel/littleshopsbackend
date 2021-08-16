@@ -21,7 +21,11 @@ const sendPush = (req, res) => {
     return res.status(400).json({ msg: "Title and body required!!" });
   }
 
-  sendNotificationEventCreation(req.body.title, req.body.messageBody);
+  sendNotificationEventCreation(
+    req.body.title,
+    req.body.messageBody,
+    req.body.businessId
+  );
 
   let response = {
     chiefId: req.body.businessId,
@@ -29,12 +33,16 @@ const sendPush = (req, res) => {
   return res.status(201).json(response);
 };
 
-async function sendNotificationEventCreation(titleAlert, bodyAlert) {
+async function sendNotificationEventCreation(
+  titleAlert,
+  bodyAlert,
+  businessId
+) {
   console.log("Drivers license");
   try {
     var payload = {
       notification: { title: titleAlert, body: bodyAlert },
-      data: { click_action: "FLUTTER_NOTIFICATION_ACTION" },
+      data: { click_action: "FLUTTER_NOTIFICATION_ACTION", info: businessId },
     };
     console.log("All I want");
     console.log(payload);
