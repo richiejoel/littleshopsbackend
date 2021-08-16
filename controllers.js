@@ -13,7 +13,7 @@ const sendPush = (req, res) => {
     return res.status(400).json({ msg: "You don't allowed permissions!!" });
   }
 
-  if (!req.body.chiefId) {
+  if (!req.body.businessId) {
     return res.status(400).json({ msg: "Param required!!" });
   }
 
@@ -24,7 +24,7 @@ const sendPush = (req, res) => {
   sendNotificationEventCreation(req.body.title, req.body.messageBody);
 
   let response = {
-    chiefId: req.body.chiefId,
+    chiefId: req.body.businessId,
   };
   return res.status(201).json(response);
 };
