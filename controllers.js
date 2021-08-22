@@ -17,6 +17,10 @@ const sendPush = (req, res) => {
     return res.status(400).json({ msg: "Param required!!" });
   }
 
+  if (!req.body.orderId) {
+    return res.status(400).json({ msg: "Param required!!" });
+  }
+
   if (!req.body.title && !req.body.messageBody) {
     return res.status(400).json({ msg: "Title and body required!!" });
   }
@@ -24,7 +28,8 @@ const sendPush = (req, res) => {
   sendNotificationEventCreation(
     req.body.title,
     req.body.messageBody,
-    req.body.businessId
+    req.body.businessId,
+    req.body.orderId
   );
 
   let response = {
@@ -36,13 +41,18 @@ const sendPush = (req, res) => {
 async function sendNotificationEventCreation(
   titleAlert,
   bodyAlert,
-  businessId
+  businessId,
+  orderId
 ) {
   console.log("Drivers license");
   try {
     var payload = {
       notification: { title: titleAlert, body: bodyAlert },
-      data: { click_action: "FLUTTER_NOTIFICATION_ACTION", info: businessId },
+      data: {
+        click_action: "FLUTTER_NOTIFICATION_ACTION",
+        info: businessId,
+        order: orderId,
+      },
     };
     console.log("All I want");
     console.log(payload);
