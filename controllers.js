@@ -1,11 +1,22 @@
 const admin = require("firebase-admin");
 const serviceAccount = require("./littleshops-e51d8-firebase-adminsdk-hwsvv-7c1640d7ba.json");
+var cron = require("node-cron");
 
 const DATABASE_URL = "https://littleshops-e51d8.firebaseio.com";
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: DATABASE_URL,
+});
+
+cron.schedule("00 30 10 * * *", () => {
+  console.log("Running a task every day 10:30 am");
+  sendNotificationEventCreation(
+    "Little Shops :D",
+    "¿Qué estas esperando?, Empieza ya a realizar compras desde nuestra app",
+    "xx",
+    "yy"
+  );
 });
 
 const sendPush = (req, res) => {
